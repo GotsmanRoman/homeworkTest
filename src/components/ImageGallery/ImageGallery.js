@@ -80,11 +80,9 @@ export default class ImageGallery extends React.Component {
             <div></div>
           )}
         </ul>
-        {needToShowLoadMore ? (
-          <Button onLoadFoto={() => this.loadFoto} />
-        ) : (
-          false
-        )}
+
+        <Button onLoadFoto={() => this.loadFoto} />
+
         {loading && <Loader />}
         {error && <h1>Error...</h1>}
       </div>
