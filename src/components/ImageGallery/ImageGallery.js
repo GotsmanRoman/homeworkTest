@@ -18,10 +18,8 @@ export default class ImageGallery extends React.Component {
   };
 
   async componentDidUpdate(prevProps, prevState) {
-    const nameSearch = this.props.nameSearch;
-    const prevName = prevProps.nameSearch;
     if (
-      prevName !== nameSearch ||
+      this.props.nameSearch !== prevProps.nameSearch ||
       this.state.currentPage !== prevState.currentPage
     ) {
       this.getFoto();
@@ -47,7 +45,7 @@ export default class ImageGallery extends React.Component {
   };
 
   loadFoto = () => {
-    this.setState(prevState => ({ currentPage: (prevState.currentPage += 1) }));
+    this.setState(prevState => ({ currentPage: prevState.currentPage + 1 }));
   };
 
   handleGalleryItem = largeImageSrc => {
@@ -84,13 +82,12 @@ export default class ImageGallery extends React.Component {
             />
           )}
         </ul>
-        {this.state.fotos.length !== 0 &&
+        {fotos.length !== 0 &&
         this.state.total !== this.state.currentPage * 12 ? (
           <Button onLoadFoto={() => this.loadFoto} />
         ) : (
           false
         )}
-        {error && <h1>Error...</h1>}
       </div>
     );
   }
