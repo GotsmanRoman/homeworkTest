@@ -61,7 +61,8 @@ export default class ImageGallery extends React.Component {
 
   render() {
     const { fotos, loading, error, showModal, largeImage } = this.state;
-    const needToShowLoadMore = fotos.length >= this.state.currentPage * 12;
+    const needToShowLoadMore =
+      this.state.fotos.length >= this.state.currentPage * 12;
     console.log(needToShowLoadMore);
     return (
       <div>
@@ -73,16 +74,18 @@ export default class ImageGallery extends React.Component {
         <ul className="ImageGallery">
           {fotos ? (
             <ImageGalleryItem
-              items={fotos}
+              items={this.state.fotos}
               onImageClick={this.handleGalleryItem}
             />
           ) : (
             <div></div>
           )}
         </ul>
-
-        <Button onLoadFoto={() => this.loadFoto} />
-
+        {needToShowLoadMore ? (
+          <Button onLoadFoto={() => this.loadFoto} />
+        ) : (
+          false
+        )}
         {loading && <Loader />}
         {error && <h1>Error...</h1>}
       </div>
