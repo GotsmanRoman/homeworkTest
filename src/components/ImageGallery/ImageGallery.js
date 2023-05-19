@@ -87,7 +87,7 @@ export default class ImageGallery extends React.Component {
           )}
         </ul>
         {fotos.length !== 0 && this.state.current !== this.state.total ? (
-          <Button onLoadFoto={() => this.loadFoto} />
+          <Button onLoadFoto={this.loadFoto} />
         ) : (
           false
         )}
