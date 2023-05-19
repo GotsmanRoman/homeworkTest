@@ -14,8 +14,8 @@ export default class ImageGallery extends React.Component {
     error: null,
     showModal: false,
     largeImage: '',
-    total: 0,
-    current: '',
+    total: '0',
+    current: 0,
   };
 
   async componentDidUpdate(prevProps, prevState) {
