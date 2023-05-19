@@ -60,7 +60,7 @@ export default class ImageGallery extends React.Component {
   };
 
   render() {
-    const { fotos, loading, error, showModal, largeImage } = this.state;
+    const { loading, error, showModal, largeImage } = this.state;
     const needToShowLoadMore =
       this.state.fotos.length >= this.state.currentPage * 12;
     console.log(needToShowLoadMore);
