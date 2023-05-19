@@ -1,5 +1,5 @@
 import React from 'react';
-import './Button/Button.css';
+import './Button';
 
 const Button = ({ onLoadFoto }) => {
   return (
