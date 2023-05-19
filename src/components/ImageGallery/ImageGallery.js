@@ -15,6 +15,7 @@ export default class ImageGallery extends React.Component {
     showModal: false,
     largeImage: '',
     total: 0,
+    current: '',
   };
 
   async componentDidUpdate(prevProps, prevState) {
@@ -37,6 +38,9 @@ export default class ImageGallery extends React.Component {
         fotos: [...prevState.fotos, ...hits],
       }));
       this.setState({ total: totalHits });
+      this.setState(prevState => ({
+        current: prevState.current + hits.length,
+      }));
     } catch (error) {
       this.setState({ error });
     } finally {
@@ -82,8 +86,7 @@ export default class ImageGallery extends React.Component {
             />
           )}
         </ul>
-        {fotos.length !== 0 &&
-        this.state.total !== this.state.currentPage * 12 ? (
+        {fotos.length !== 0 && this.state.current !== this.state.total ? (
           <Button onLoadFoto={() => this.loadFoto} />
         ) : (
           false
