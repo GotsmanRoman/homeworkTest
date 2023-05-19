@@ -14,6 +14,7 @@ export default class ImageGallery extends React.Component {
     error: null,
     showModal: false,
     largeImage: '',
+    total: 0,
   };
 
   async componentDidUpdate(prevProps, prevState) {
@@ -30,10 +31,14 @@ export default class ImageGallery extends React.Component {
     const nameSearch = this.props.nameSearch;
     this.setState({ loading: true });
     try {
-      const { hits } = await fetchFoto(nameSearch, this.state.currentPage);
+      const { hits, totalHits } = await fetchFoto(
+        nameSearch,
+        this.state.currentPage
+      );
       this.setState(prevState => ({
         fotos: [...prevState.fotos, ...hits],
       }));
+      this.setState({ total: totalHits });
     } catch (error) {
       this.setState({ error });
     } finally {
@@ -61,7 +66,7 @@ export default class ImageGallery extends React.Component {
 
   render() {
     const { fotos, loading, error, showModal, largeImage } = this.state;
-    const needToShowLoadMore = fotos.length >= this.state.currentPage * 12;
+    //const needToShowLoadMore = fotos.length >= this.state.currentPage * 12;
     return (
       <div>
         {showModal && (
@@ -79,12 +84,12 @@ export default class ImageGallery extends React.Component {
             />
           )}
         </ul>
-        {needToShowLoadMore ? (
+        {this.state.fotos.length !== 0 &&
+        this.state.total !== this.state.currentPage * 12 ? (
           <Button onLoadFoto={this.loadFoto} />
         ) : (
-          <div></div>
+          false
         )}
-        {loading && <Loader />}
         {error && <h1>Error...</h1>}
       </div>
     );
